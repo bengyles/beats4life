@@ -11,7 +11,6 @@ export default class WaveformPlaylist extends Component {
     playlist = ExternalWaveformPlaylist({
       samplesPerPixel: 3000,
       mono: true,
-      waveHeight: 70,
       container: document.getElementById('playlist'),
       state: 'cursor',
       colors: {
@@ -32,20 +31,18 @@ export default class WaveformPlaylist extends Component {
         name: 'loop',
         gain: 1,
       },
-    ])
-        .then(function() {
-          // can do stuff with the playlist.
-          // playlist.play();
-        });
+    ]).then(function() {
+      // can do stuff with the playlist.
+    });
   }
 
-  play = ()=>{
+  play = () => {
     playlist.play();
-  }
+  };
 
-  pause = ()=>{
+  pause = () => {
     playlist.pause();
-  }
+  };
 
   render() {
     // }
@@ -54,6 +51,9 @@ export default class WaveformPlaylist extends Component {
           <Head>
             <title>Beats 4 life</title>
             <link rel="icon" href="/favicon.ico"/>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous"/>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+            <link rel="stylesheet" href="/css/styles.css"/>
           </Head>
 
           <main>
