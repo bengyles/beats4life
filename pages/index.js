@@ -19,7 +19,7 @@ export default class WaveformPlaylist extends Component {
         fadeColor: 'black',
       },
       controls: {
-        show: true,
+        show: false,
         width: 200,
       },
       zoomLevels: [500, 1000, 3000, 5000],
@@ -57,7 +57,7 @@ export default class WaveformPlaylist extends Component {
           </Head>
 
           <main>
-            <div id="playlist">
+            <div style={{display: "none"}} id="playlist">
 
             </div>
             <div>
@@ -65,8 +65,6 @@ export default class WaveformPlaylist extends Component {
               <button onClick={this.pause}>Pause</button>
             </div>
           </main>
-
-
         </div>
     );
   }
