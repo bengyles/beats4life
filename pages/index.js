@@ -8,6 +8,9 @@ let constraints = {audio: true};
 let ee;
 
 export default class WaveformPlaylist extends Component {
+  state = {
+    downloadUrl: null,
+  };
 
   async componentDidMount() {
     navigator.getUserMedia = (navigator.getUserMedia ||
@@ -73,11 +76,13 @@ export default class WaveformPlaylist extends Component {
       }
 
       let downloadUrl = window.URL.createObjectURL(data);
-
-      let a = document.createElement('a');
-      a.href = downloadUrl;
-      a.download = 'beats4life.wav';
-      a.click();
+      console.log(downloadUrl);
+      this.setState({downloadUrl});
+      //
+      // let a = document.createElement('a');
+      // a.href = downloadUrl;
+      // a.download = 'beats4life.wav';
+      // a.click();
     }
   };
 
@@ -120,6 +125,11 @@ export default class WaveformPlaylist extends Component {
               <button onClick={this.record}>Record</button>
               <button onClick={this.stop}>Stop</button>
               <button onClick={this.download}>Download</button>
+              {this.state.downloadUrl && (
+                  <p style={{marginTop: 20}}>
+                    <a href={this.state.downloadUrl} download="beats4life.wav">Klik hier om het bestand te downloaden</a>
+                  </p>
+              )}
             </div>
           </main>
         </div>
