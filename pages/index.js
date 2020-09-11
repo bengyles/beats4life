@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React, {Component} from 'react';
 import ExternalWaveformPlaylist from 'waveform-playlist';
+import {Container, Icon, Button} from 'semantic-ui-react';
 
 let playlist;
 let userMediaStream;
@@ -114,24 +115,39 @@ export default class WaveformPlaylist extends Component {
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
             <link rel="stylesheet" href="/css/styles.css"/>
+            <link
+                async
+                rel="stylesheet"
+                href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
+            />
+            <script
+                async
+                src="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.js"
+            ></script>
           </Head>
 
-          <main>
-            <div id="playlist">
 
+          <Container style={{marginTop: 20}} fluid textAlign="center">
+            <div style={{display: 'none'}} id="playlist">
             </div>
-            <div>
-              <button onClick={this.play}>Play</button>
-              <button onClick={this.record}>Record</button>
-              <button onClick={this.stop}>Stop</button>
-              <button onClick={this.download}>Download</button>
-              {this.state.downloadUrl && (
-                  <p style={{marginTop: 20}}>
-                    <a href={this.state.downloadUrl} download="beats4life.wav">Klik hier om het bestand te downloaden</a>
-                  </p>
-              )}
-            </div>
-          </main>
+            <Button onClick={this.record} circular color="white" size="massive" style={{height: 250, width: 250, marginBottom: 50, marginTop: 50}}>
+              <Icon name="microphone" color="red" size="massive" style={{align: 'center', margin: -20}}/>
+            </Button>
+            <br/>
+
+            <Button onClick={this.play} icon="play">
+            </Button>
+            <Button onClick={this.stop} icon="stop">
+            </Button>
+            <Button onClick={this.download} icon="save">
+            </Button>
+            <br/>
+            {this.state.downloadUrl && (
+                <p style={{marginTop: 50}}>
+                  <a href={this.state.downloadUrl} download="beats4life.wav"><Button size="big"><Icon name="download"/>Download</Button></a>
+                </p>
+            )}
+          </Container>
         </div>
     );
   }
