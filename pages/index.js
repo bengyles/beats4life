@@ -11,6 +11,7 @@ let ee;
 export default class WaveformPlaylist extends Component {
   state = {
     downloadUrl: null,
+    recording: false,
   };
 
   async componentDidMount() {
@@ -96,10 +97,12 @@ export default class WaveformPlaylist extends Component {
       playlist.tracks.splice(-1, 1);
     }
     playlist.record();
+    this.setState({recording: true});
   };
 
   stop = () => {
     playlist.stop();
+    this.setState({recording: false});
   };
 
   download = () => {
@@ -130,16 +133,16 @@ export default class WaveformPlaylist extends Component {
           <Container style={{marginTop: 20}} fluid textAlign="center">
             <div style={{display: 'none'}} id="playlist">
             </div>
-            <Button onClick={this.record} circular color="white" size="massive" style={{height: 250, width: 250, marginBottom: 50, marginTop: 50}}>
-              <Icon name="microphone" color="red" size="massive" style={{align: 'center', margin: -20}}/>
+            <Button onClick={this.state.recording ? this.stop : this.record} circular color={this.state.recording ? 'red' : 'white'} size="massive" style={{height: 250, width: 250, marginBottom: 50, marginTop: 50}}>
+              <Icon name="microphone" color={this.state.recording ? 'white' : 'red'} size="massive" style={{align: 'center', margin: -20}}/>
             </Button>
             <br/>
 
-            <Button onClick={this.play} icon="play">
+            <Button disabled={this.state.recording} onClick={this.play} icon="play">
             </Button>
             <Button onClick={this.stop} icon="stop">
             </Button>
-            <Button onClick={this.download} icon="save">
+            <Button disabled={this.state.recording} onClick={this.download} icon="save">
             </Button>
             <br/>
             {this.state.downloadUrl && (
