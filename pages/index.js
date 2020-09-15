@@ -12,6 +12,7 @@ export default class WaveformPlaylist extends Component {
   state = {
     downloadUrl: null,
     recording: false,
+    initialized: false,
   };
 
   async componentDidMount() {
@@ -65,6 +66,7 @@ export default class WaveformPlaylist extends Component {
         gain: 1,
       },
     ]);
+    this.setState({initialized: true});
     // initialize the WAV exporter.
     playlist.initExporter();
     ee = playlist.getEventEmitter();
@@ -123,33 +125,34 @@ export default class WaveformPlaylist extends Component {
                 rel="stylesheet"
                 href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
             />
-            <script
-                async
-                src="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.js"
-            ></script>
           </Head>
 
 
           <Container style={{marginTop: 20}} fluid textAlign="center">
             <div style={{display: 'none'}} id="playlist">
             </div>
-            <Button onClick={this.state.recording ? this.stop : this.record} circular color={this.state.recording ? 'red' : 'white'} size="massive" style={{height: 250, width: 250, marginBottom: 50, marginTop: 50}}>
-              <Icon name="microphone" color={this.state.recording ? 'white' : 'red'} size="massive" style={{align: 'center', margin: -20}}/>
-            </Button>
-            <br/>
+            {this.state.initialized ?
+                <div>
+                  <Button onClick={this.state.recording ? this.stop : this.record} circular size="massive" style={{height: 250, width: 250, marginBottom: 50, marginTop: 50, backgroundColor: this.state.recording ? '#e74c3c' : '#ecf0f1'}}>
+                    <Icon name="microphone" size="massive" style={{align: 'center', margin: -20, color: this.state.recording ? '#ecf0f1' : '#e74c3c'}}/>
+                  </Button>
+                  <br/>
 
-            <Button disabled={this.state.recording} onClick={this.play} icon="play">
-            </Button>
-            <Button onClick={this.stop} icon="stop">
-            </Button>
-            <Button disabled={this.state.recording} onClick={this.download} icon="save">
-            </Button>
-            <br/>
-            {this.state.downloadUrl && (
-                <p style={{marginTop: 50}}>
-                  <a href={this.state.downloadUrl} download="beats4life.wav"><Button size="big"><Icon name="download"/>Download</Button></a>
-                </p>
-            )}
+                  <Button disabled={this.state.recording} onClick={this.play} icon="play">
+                  </Button>
+                  <Button onClick={this.stop} icon="stop">
+                  </Button>
+                  <Button disabled={this.state.recording} onClick={this.download} icon="save">
+                  </Button>
+                  <br/>
+                  {this.state.downloadUrl && (
+                      <p style={{marginTop: 50}}>
+                        <a href={this.state.downloadUrl} download="beats4life.wav"><Button size="big"><Icon name="download"/>Download</Button></a>
+                      </p>
+                  )}
+                </div>
+                :
+                <Icon loading name="circle notch" size="massive" style={{color: 'white', marginTop: 100}}></Icon>}
           </Container>
         </div>
     );
