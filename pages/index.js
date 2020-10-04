@@ -93,8 +93,10 @@ export default class WaveformPlaylist extends Component {
   play = () => {
     if(playlist.tracks.length > 1){
       try {
+        console.log(playlist.tracks[1]);
         let latency = playlist.tracks[1].playout.ac.baseLatency;
-        playlist.tracks[0].startTime = latency || 0;
+        playlist.tracks[0].startTime = latency
+        console.log(playlist.tracks[0].startTime);
       }catch(err){
         console.log(err);
       }
@@ -144,6 +146,8 @@ export default class WaveformPlaylist extends Component {
                   <Button onClick={this.state.recording ? this.stop : this.record} circular size="massive" style={{height: 250, width: 250, marginBottom: 50, marginTop: 50, backgroundColor: this.state.recording ? '#e74c3c' : '#ecf0f1'}}>
                     <Icon name="microphone" size="massive" style={{align: 'center', margin: -20, color: this.state.recording ? '#ecf0f1' : '#e74c3c'}}/>
                   </Button>
+
+                  <p style={{color: "white"}}>{playlist.tracks.length>1?"Latency: " + playlist.tracks[1].playout.ac.baseLatency:""}</p>
                   <br/>
 
                   <Button disabled={this.state.recording} onClick={this.play} icon="play">
