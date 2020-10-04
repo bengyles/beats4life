@@ -91,6 +91,14 @@ export default class WaveformPlaylist extends Component {
   };
 
   play = () => {
+    if(playlist.tracks.length > 1){
+      try {
+        let latency = playlist.tracks[1].playout.ac.baseLatency;
+        playlist.tracks[0].startTime = latency || 0;
+      }catch(err){
+        console.log(err);
+      }
+    }
     playlist.play();
   };
 
