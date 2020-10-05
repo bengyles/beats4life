@@ -96,7 +96,7 @@ export default class WaveformPlaylist extends Component {
       try {
         console.log(playlist.tracks[1]);
         let latency = playlist.tracks[1].playout.ac.baseLatency;
-        playlist.tracks[0].startTime = latency;
+        playlist.tracks[0].startTime = latency *2;
         playlist.tracks[1].startTime = 0;
         console.log(playlist.tracks[0].startTime);
       }catch(err){
