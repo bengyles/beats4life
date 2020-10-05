@@ -95,8 +95,9 @@ export default class WaveformPlaylist extends Component {
       console.log(playlist.tracks);
       try {
         console.log(playlist.tracks[1]);
-        let latency = playlist.tracks[1].playout.ac.baseLatency * 2;
-        playlist.tracks[0].startTime = latency
+        let latency = playlist.tracks[1].playout.ac.baseLatency;
+        playlist.tracks[0].startTime = latency;
+        playlist.tracks[1].startTime = 0;
         console.log(playlist.tracks[0].startTime);
       }catch(err){
         console.log(err);
@@ -149,7 +150,6 @@ export default class WaveformPlaylist extends Component {
                   </Button>
 
                   <p style={{color: "white"}}>{playlist.tracks.length>1?"Latency: " + playlist.tracks[1].playout.ac.baseLatency:""}</p>
-                  <br/>
 
                   <Button disabled={this.state.recording} onClick={this.play} icon="play">
                   </Button>
